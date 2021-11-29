@@ -28,10 +28,6 @@ const Blog = ({ posts }) => {
   )
 }
 
-Blog.defaultProps = {
-  posts: [],
-}
-
 export default Blog
 
 /**
