@@ -44,13 +44,13 @@ export function getStaticProps() {
   const postsPath = path.join(process.cwd(), 'posts')
   const fileNames = fs.readdirSync(postsPath)
   const filePosts = fileNames.map((name) => {
-    const fullPath = path.join(process.cwd(), "posts", name);
+    const fullPath = path.join(postsPath, name)
     const file = fs.readFileSync(fullPath, 'utf-8')
     const { data } = matter(file)
     return data
   })
 
-  const posts = [...cmsPosts, ...filePosts];
+  const posts = [...cmsPosts, ...filePosts]
 
   return {
     props: {
