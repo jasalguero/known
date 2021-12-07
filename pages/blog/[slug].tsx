@@ -66,13 +66,13 @@ export function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview }) {
   let post
   try {
     const filePath = path.join(process.cwd(), 'posts', `${params.slug}.mdx`)
     post = fs.readFileSync(filePath, 'utf-8')
   } catch (error) {
-    const cmsPosts = postsFromCMS.published.map((p) => matter(p))
+    const cmsPosts = (preview ? postsFromCMS.draft : postsFromCMS.published).map((p) => matter(p))
 
     const match = cmsPosts.find((p) => p.data.slug === params.slug)
     post = match.content
@@ -89,9 +89,4 @@ export async function getStaticProps({ params }) {
   }
 }
 
-/** 
- * Need to get the paths here
- * then the the correct post for the matching path
- * Posts can come from the fs or our CMS
- */
 export default BlogPost
